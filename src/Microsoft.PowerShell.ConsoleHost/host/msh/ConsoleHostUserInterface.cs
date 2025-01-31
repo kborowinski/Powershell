@@ -709,7 +709,10 @@ namespace Microsoft.PowerShell
         /// </exception>
         public override void Write(string value)
         {
-            WriteImpl(value, newLine: false);
+            lock (_instanceLock)
+            {
+                WriteImpl(value, newLine: false);
+            }
         }
 
         private void WriteImpl(string value, bool newLine)
@@ -845,7 +848,10 @@ namespace Microsoft.PowerShell
         /// </exception>
         public override void WriteLine(string value)
         {
-            this.WriteImpl(value, newLine: true);
+            lock (_instanceLock)
+            {
+                this.WriteImpl(value, newLine: true);
+            }
         }
 
         /// <summary>
@@ -862,7 +868,10 @@ namespace Microsoft.PowerShell
         /// </exception>
         public override void WriteLine()
         {
-            this.WriteImpl(Environment.NewLine, newLine: false);
+            lock (_instanceLock)
+            {
+                this.WriteImpl(Environment.NewLine, newLine: false);
+            }
         }
 
         #region Word Wrapping
