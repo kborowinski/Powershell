@@ -715,6 +715,8 @@ namespace Microsoft.PowerShell
             }
         }
 
+        // The WriteImpl() method should always be called within a lock on _instanceLock
+        // to ensure thread safety and prevent issues in multi-threaded scenarios.
         private void WriteImpl(string value, bool newLine)
         {
             if (string.IsNullOrEmpty(value) && !newLine)
